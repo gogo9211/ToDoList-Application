@@ -41,7 +41,7 @@ namespace TDLA.ImGUI
 
                 controller.Update(1f / 60f, snapshot);
 
-                UI.DrawUI();
+                Program.ui.DrawUI();
 
                 cl.Begin();
                 cl.SetFramebuffer(gd.MainSwapchain.Framebuffer);

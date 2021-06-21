@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TDLA
+namespace TDLA.Models
 {
     using System;
     using System.Collections.Generic;
@@ -18,6 +18,7 @@ namespace TDLA
         public ToDoLists()
         {
             this.ToDoListShares = new HashSet<ToDoListShares>();
+            this.Tasks = new HashSet<Tasks>();
         }
     
         public int ID { get; set; }
@@ -30,5 +31,7 @@ namespace TDLA
         public virtual Users Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ToDoListShares> ToDoListShares { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tasks> Tasks { get; set; }
     }
 }

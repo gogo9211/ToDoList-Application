@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using TDLA.DBController;
 using TDLA.Functions;
+using TDLA.Models;
 
 namespace TDLA.ImGUI.Panels
 {
-    class ToDoListPanel
+    static class ToDoListPanel
     {
         private static ToDoLists current_list_selected;
         private static bool list_is_shared = false;
@@ -22,11 +23,16 @@ namespace TDLA.ImGUI.Panels
         private static byte[] title_share = new byte[16];
         public static void DrawToDoLists()
         {
-            if (ImGui.Begin("Lists", ref UI.window_array[2]))
+            if (current_list_selected != null)
             {
-                foreach (var list in UI.todo_lists)
+                TaskPanel.DrawTasks(current_list_selected);
+            }
+
+            if (ImGui.Begin("Lists", ref Program.ui.window_array[2]))
+            {
+                foreach (var list in Program.ui.todo_lists)
                 {
-                    if (list.Creator != UI.logged_at_id)
+                    if (list.Creator != Program.ui.logged_at_id)
                         continue;
 
                     if (ImGui.Selectable("List: " + list.Title))
@@ -40,15 +46,17 @@ namespace TDLA.ImGUI.Panels
 
                         Array.Resize(ref title_edit, 16);
                         Array.Resize(ref title_share, 16);
+
+                        TaskPanel.Reset();
                     }
                 }
 
-                if (ImGui.Begin("Shared Lists", ref UI.window_array[2]))
+                if (ImGui.Begin("Shared Lists", ref Program.ui.window_array[2]))
                 {
-                    var shared_lists = UI.todo_list_shares.Where(c => c.UserID == UI.logged_at_id).ToArray();
+                    var shared_lists = Program.ui.todo_list_shares.Where(c => c.UserID == Program.ui.logged_at_id).ToArray();
                     foreach (var share in shared_lists)
                     {
-                        var list = UI.todo_lists.Where(c => c.ID == share.ListID).FirstOrDefault();
+                        var list = Program.ui.todo_lists.Where(c => c.ID == share.ListID).FirstOrDefault();
                         if (ImGui.Selectable("List: " + list.Title))
                         {
                             var current_list = list;
@@ -60,12 +68,14 @@ namespace TDLA.ImGUI.Panels
 
                             Array.Resize(ref title_edit, 16);
                             Array.Resize(ref title_share, 16);
+
+                            TaskPanel.Reset();
                         }
                     }
                 }
             }
 
-            if (ImGui.Begin("Share List", ref UI.window_array[2], ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse))
+            if (ImGui.Begin("Share List", ref Program.ui.window_array[2], ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse))
             {
                 ImGui.PushItemWidth(300);
 
@@ -86,7 +96,7 @@ namespace TDLA.ImGUI.Panels
                 }
             }
 
-            if (ImGui.Begin("Create List", ref UI.window_array[2], ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse))
+            if (ImGui.Begin("Create List", ref Program.ui.window_array[2], ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse))
             {
                 ImGui.PushItemWidth(300);
 
@@ -107,7 +117,7 @@ namespace TDLA.ImGUI.Panels
                 }
             }
 
-            if (ImGui.Begin("Edit List", ref UI.window_array[1], ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse))
+            if (ImGui.Begin("Edit List", ref Program.ui.window_array[1], ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse))
             {
                 ImGui.PushItemWidth(300);
 
@@ -145,11 +155,13 @@ namespace TDLA.ImGUI.Panels
                         return;
                     }
 
-                    ToDoListFunctions.DeleteList(list_is_shared, current_list_selected, UI.logged_at_id);
+                    ToDoListFunctions.DeleteList(list_is_shared, current_list_selected, Program.ui.logged_at_id);
 
                     current_list_selected = null;
                     Array.Clear(title_edit, 0, title_edit.Length);
                     Array.Clear(title_share, 0, title_edit.Length);
+
+                    TaskPanel.Reset();
                 }
             }
         }

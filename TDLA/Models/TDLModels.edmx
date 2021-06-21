@@ -5,6 +5,20 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TDAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Tasks">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ListID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="Completed" Type="int" Nullable="false" />
+          <Property Name="CreatedAt" Type="date" Nullable="false" />
+          <Property Name="Creator" Type="int" Nullable="false" />
+          <Property Name="LastChange" Type="date" Nullable="false" />
+          <Property Name="ChangedBy" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="ToDoLists">
           <Key>
             <PropertyRef Name="ID" />
@@ -39,6 +53,18 @@
           <Property Name="Admin" Type="int" />
           <Property Name="ChangedBy" Type="int" />
         </EntityType>
+        <Association Name="FK_Tasks_ToDoLists">
+          <End Role="ToDoLists" Type="Self.ToDoLists" Multiplicity="1" />
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToDoLists">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="ListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ToDoLists_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
           <End Role="ToDoLists" Type="Self.ToDoLists" Multiplicity="*" />
@@ -76,9 +102,14 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="TDAModelStoreContainer">
+          <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ToDoLists" EntityType="Self.ToDoLists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ToDoListShares" EntityType="Self.ToDoListShares" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Tasks_ToDoLists" Association="Self.FK_Tasks_ToDoLists">
+            <End Role="ToDoLists" EntitySet="ToDoLists" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
           <AssociationSet Name="FK_ToDoLists_Users" Association="Self.FK_ToDoLists_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="ToDoLists" EntitySet="ToDoLists" />
@@ -129,6 +160,11 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="ToDoListShares" EntitySet="ToDoListShares" />
           </AssociationSet>
+          <EntitySet Name="Tasks" EntityType="TDAModel.Tasks" />
+          <AssociationSet Name="FK_Tasks_ToDoLists" Association="TDAModel.FK_Tasks_ToDoLists">
+            <End Role="ToDoLists" EntitySet="ToDoLists" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ToDoLists">
           <Key>
@@ -142,6 +178,7 @@
           <Property Name="ChangedBy" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Users" Relationship="TDAModel.FK_ToDoLists_Users" FromRole="ToDoLists" ToRole="Users" />
           <NavigationProperty Name="ToDoListShares" Relationship="TDAModel.FK_ToDoListShares_ToDoLists" FromRole="ToDoLists" ToRole="ToDoListShares" />
+          <NavigationProperty Name="Tasks" Relationship="TDAModel.FK_Tasks_ToDoLists" FromRole="ToDoLists" ToRole="Tasks" />
         </EntityType>
         <Association Name="FK_ToDoLists_Users">
           <End Type="TDAModel.Users" Role="Users" Multiplicity="1" />
@@ -189,6 +226,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Tasks">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ListID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Completed" Type="Int32" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Creator" Type="Int32" Nullable="false" />
+          <Property Name="LastChange" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ChangedBy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ToDoLists" Relationship="TDAModel.FK_Tasks_ToDoLists" FromRole="Tasks" ToRole="ToDoLists" />
+        </EntityType>
+        <Association Name="FK_Tasks_ToDoLists">
+          <End Type="TDAModel.ToDoLists" Role="ToDoLists" Multiplicity="1" />
+          <End Type="TDAModel.Tasks" Role="Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ToDoLists">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="ListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -228,6 +292,21 @@
               <MappingFragment StoreEntitySet="ToDoListShares">
                 <ScalarProperty Name="ListID" ColumnName="ListID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tasks">
+            <EntityTypeMapping TypeName="TDAModel.Tasks">
+              <MappingFragment StoreEntitySet="Tasks">
+                <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
+                <ScalarProperty Name="LastChange" ColumnName="LastChange" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Completed" ColumnName="Completed" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ListID" ColumnName="ListID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

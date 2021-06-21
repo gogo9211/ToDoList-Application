@@ -6,10 +6,11 @@ using System.Numerics;
 using System.Linq;
 using System.Text;
 using TDLA.Functions;
+using TDLA.Models;
 
 namespace TDLA.ImGUI.Panels
 {
-    class AdminPanel
+    static class AdminPanel
     {
         private static Users current_user_selected;
 
@@ -24,9 +25,9 @@ namespace TDLA.ImGUI.Panels
         private static byte[] last_name = new byte[16];
         public static void DrawAdminPanel()
         {
-            if (ImGui.Begin("Users", ref UI.window_array[1]))
+            if (ImGui.Begin("Users", ref Program.ui.window_array[1]))
             {
-                foreach (var user in UI.users)
+                foreach (var user in Program.ui.users)
                 {
                     if (ImGui.Selectable("user: " + user.FirstName))
                     {
@@ -46,7 +47,7 @@ namespace TDLA.ImGUI.Panels
                 }
             }
 
-            if (ImGui.Begin("Create Account", ref UI.window_array[1], ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse))
+            if (ImGui.Begin("Create Account", ref Program.ui.window_array[1], ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse))
             {
                 ImGui.PushItemWidth(300);
 
@@ -75,7 +76,7 @@ namespace TDLA.ImGUI.Panels
                 }
             }
 
-            if (ImGui.Begin("Edit User", ref UI.window_array[1], ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse))
+            if (ImGui.Begin("Edit User", ref Program.ui.window_array[1], ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse))
             {
                 ImGui.PushItemWidth(300);
 

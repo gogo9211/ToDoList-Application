@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TDLA
+namespace TDLA.Models
 {
     using System;
     using System.Data.Entity;
@@ -28,5 +28,6 @@ namespace TDLA
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<ToDoLists> ToDoLists { get; set; }
         public virtual DbSet<ToDoListShares> ToDoListShares { get; set; }
+        public virtual DbSet<Tasks> Tasks { get; set; }
     }
 }

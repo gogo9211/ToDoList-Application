@@ -11,6 +11,8 @@ namespace TDLA
 {
     class Program
     {
+        public static UI ui = new UI();
+
         static void Main(string[] args)
         {
             Console.WriteLine("Start!\n");

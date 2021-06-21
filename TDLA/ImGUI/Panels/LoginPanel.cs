@@ -10,14 +10,14 @@ using TDLA.Functions;
 
 namespace TDLA.ImGUI.Panels
 {
-    class LoginPanel
+    static class LoginPanel
     {
         private static byte[] username = new byte[16];
         private static byte[] password = new byte[16];
 
         public static void DrawLogin()
         {
-            if (ImGui.Begin("Login", ref UI.window_array[0], ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse))
+            if (ImGui.Begin("Login", ref Program.ui.window_array[0], ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse))
             {
                 ImGui.PushItemWidth(300);
 

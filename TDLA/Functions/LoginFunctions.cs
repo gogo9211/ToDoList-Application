@@ -7,19 +7,20 @@ using System.Linq;
 using System.Text;
 using TDLA.DBController;
 using TDLA.ImGUI;
+using TDLA.Models;
 
 namespace TDLA.Functions
 {
-    class LoginFunctions
+    static class LoginFunctions
     {
         public static void Login(string name, string pass)
         {
-            foreach (var user in UI.users)
+            foreach (var user in Program.ui.users)
             {
                 if (user.Username == name && user.Password == pass)
                 {
-                    UI.logged_at_id = user.ID;
-                    UI.is_admin = Convert.ToBoolean(user.Admin);
+                    Program.ui.logged_at_id = user.ID;
+                    Program.ui.is_admin = Convert.ToBoolean(user.Admin);
                 }
             }
         }

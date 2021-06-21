@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TDLA
+namespace TDLA.Models
 {
     using System;
     using System.Collections.Generic;

@@ -7,32 +7,32 @@ using TDLA.Models;
 
 namespace TDLA.DBController
 {
-    class UsersController
+    class TaskController
     {
-        public List<Users> GetAll()
+        public List<Tasks> GetAll()
         {
             using (DBEntities db = new DBEntities())
             {
-                var users = db.Users.ToList();
-                return users;
+                var tasks = db.Tasks.ToList();
+                return tasks;
             }
         }
 
-        public void Insert(Users user)
+        public void Insert(Tasks task)
         {
             using (DBEntities db = new DBEntities())
             {
-                db.Users.Add(user);
+                db.Tasks.Add(task);
                 db.SaveChanges();
             }
         }
 
-        public void Update(Users user)
+        public void Update(Tasks task)
         {
             using (DBEntities db = new DBEntities())
             {
-                db.Users.Attach(user);
-                db.Entry(user).State = System.Data.Entity.EntityState.Modified;
+                db.Tasks.Attach(task);
+                db.Entry(task).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
         }
@@ -41,11 +41,11 @@ namespace TDLA.DBController
         {
             using (DBEntities db = new DBEntities())
             {
-                var user = db.Users.Where(c => c.ID == id).FirstOrDefault();
+                var task = db.Tasks.Where(c => c.ID == id).FirstOrDefault();
 
-                if (user != null)
+                if (task != null)
                 {
-                    db.Users.Remove(user);
+                    db.Tasks.Remove(task);
                     db.SaveChanges();
                 }
             }
