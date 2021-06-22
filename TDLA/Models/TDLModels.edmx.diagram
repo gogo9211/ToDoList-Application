@@ -13,11 +13,14 @@
         <AssociationConnector Association="TDAModel.FK_ToDoListShares_Users" />
         <EntityTypeShape EntityType="TDAModel.Tasks" Width="1.5" PointX="8.375" PointY="1.875" />
         <AssociationConnector Association="TDAModel.FK_Tasks_ToDoLists" ManuallyRouted="true" >
-          <ConnectorPoint PointX="5.25" PointY="4.2711393229166665" />
-          <ConnectorPoint PointX="6.791666666666667" PointY="4.2711393229166656" />
-          <ConnectorPoint PointX="6.958333333333333" PointY="4.2711393229166665" />
-          <ConnectorPoint PointX="8.375" PointY="4.2711393229166665" />
+          <ConnectorPoint PointX="5.25" PointY="4.6244921875" />
+          <ConnectorPoint PointX="6.8125" PointY="54.580330788167309" />
+          <ConnectorPoint PointX="6.8125" PointY="58.266578978305368" />
+          <ConnectorPoint PointX="8.375" PointY="4.8167936197916656" />
         </AssociationConnector>
+        <EntityTypeShape EntityType="TDAModel.TaskAssigns" Width="1.5" PointX="10.75" PointY="1.875" />
+        <AssociationConnector Association="TDAModel.FK_TaskAssigns_Users" />
+        <AssociationConnector Association="TDAModel.FK_TaskAssigns_Tasks" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -244,6 +244,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBController\TaskAssignsController.cs" />
     <Compile Include="DBController\TaskController.cs" />
     <Compile Include="DBController\ToDoListController.cs" />
     <Compile Include="DBController\ToDoListSharesController.cs" />
@@ -260,6 +261,9 @@
     <Compile Include="ImGUI\Panels\ToDoListPanel.cs" />
     <Compile Include="ImGUI\Rendering.cs" />
     <Compile Include="ImGUI\UI.cs" />
+    <Compile Include="Models\TaskAssigns.cs">
+      <DependentUpon>TDLModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Tasks.cs">

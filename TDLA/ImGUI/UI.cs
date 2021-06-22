@@ -15,11 +15,13 @@ namespace TDLA.ImGUI
         public ToDoListController tdc = new ToDoListController();
         public ToDoListSharesController tdsc = new ToDoListSharesController();
         public TaskController tc = new TaskController();
+        public TaskAssignsController tac = new TaskAssignsController();
 
         public List<Users> users = new List<Users>();
         public List<ToDoLists> todo_lists = new List<ToDoLists>();
         public List<ToDoListShares> todo_list_shares = new List<ToDoListShares>();
         public List<Tasks> tasks = new List<Tasks>();
+        public List<TaskAssigns> task_assigns = new List<TaskAssigns>();
 
         public int logged_at_id = 0;
         public bool is_admin = false;
@@ -33,6 +35,8 @@ namespace TDLA.ImGUI
                 users = uc.GetAll();
                 todo_lists = tdc.GetAll();
                 todo_list_shares = tdsc.GetAll();
+                tasks = tc.GetAll();
+                task_assigns = tac.GetAll();
 
                 init = true;
             }

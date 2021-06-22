@@ -29,5 +29,6 @@ namespace TDLA.Models
         public virtual DbSet<ToDoLists> ToDoLists { get; set; }
         public virtual DbSet<ToDoListShares> ToDoListShares { get; set; }
         public virtual DbSet<Tasks> Tasks { get; set; }
+        public virtual DbSet<TaskAssigns> TaskAssigns { get; set; }
     }
 }

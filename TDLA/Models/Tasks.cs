@@ -14,6 +14,12 @@ namespace TDLA.Models
     
     public partial class Tasks
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Tasks()
+        {
+            this.TaskAssigns = new HashSet<TaskAssigns>();
+        }
+    
         public int ID { get; set; }
         public int ListID { get; set; }
         public string Title { get; set; }
@@ -25,5 +31,7 @@ namespace TDLA.Models
         public int ChangedBy { get; set; }
     
         public virtual ToDoLists ToDoLists { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TaskAssigns> TaskAssigns { get; set; }
     }
 }

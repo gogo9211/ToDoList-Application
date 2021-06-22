@@ -53,9 +53,11 @@ namespace TDLA.ImGUI.Panels
 
                 if (ImGui.Begin("Shared Lists", ref Program.ui.window_array[2]))
                 {
-                    var shared_lists = Program.ui.todo_list_shares.Where(c => c.UserID == Program.ui.logged_at_id).ToArray();
-                    foreach (var share in shared_lists)
+                    foreach (var share in Program.ui.todo_list_shares)
                     {
+                        if (share.UserID != Program.ui.logged_at_id)
+                            continue;
+
                         var list = Program.ui.todo_lists.Where(c => c.ID == share.ListID).FirstOrDefault();
                         if (ImGui.Selectable("List: " + list.Title))
                         {
@@ -84,6 +86,7 @@ namespace TDLA.ImGUI.Panels
 
                 ImGui.InputInt("User ID", ref current_share_user_id);
 
+                ImGui.Spacing();
                 if (ImGui.Button("Share", new Vector2(130, 20)))
                 {
                     if (current_list_selected == null)
@@ -117,7 +120,7 @@ namespace TDLA.ImGUI.Panels
                 }
             }
 
-            if (ImGui.Begin("Edit List", ref Program.ui.window_array[1], ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse))
+            if (ImGui.Begin("Edit List", ref Program.ui.window_array[2], ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoCollapse))
             {
                 ImGui.PushItemWidth(300);
 

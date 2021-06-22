@@ -19,6 +19,7 @@ namespace TDLA.Models
         {
             this.ToDoLists = new HashSet<ToDoLists>();
             this.ToDoListShares = new HashSet<ToDoListShares>();
+            this.TaskAssigns = new HashSet<TaskAssigns>();
         }
     
         public int ID { get; set; }
@@ -36,5 +37,7 @@ namespace TDLA.Models
         public virtual ICollection<ToDoLists> ToDoLists { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ToDoListShares> ToDoListShares { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TaskAssigns> TaskAssigns { get; set; }
     }
 }
