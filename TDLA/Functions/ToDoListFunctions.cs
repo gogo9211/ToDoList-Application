@@ -95,7 +95,11 @@ namespace TDLA.Functions
                 foreach (var task in tasks)
                 {
                     var assign = Program.ui.task_assigns.Where(c => c.TaskID == task.ID && c.UserID == user_id).FirstOrDefault();
-                    Program.ui.tac.Delete(assign.ID);
+
+                    if (assign != null)
+                    {
+                        Program.ui.tac.Delete(assign.ID);
+                    }
                 }
 
                 var share = Program.ui.todo_list_shares.Where(c => c.ListID == current_list_selected.ID && c.UserID == user_id).FirstOrDefault();
